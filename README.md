@@ -1,1 +1,13 @@
-# DSC80_Proj5
+# Rank Prediction of New York City Police Officers based on Civilian Complaints
+
+The objective of the project was to predict the rank of New York City police officers based on civilian complaints filed against them. The rank of an officer can reflect their authority, responsibility, and the police culture they engage in during work.
+
+The baseline model used two categorical features, `mos_gender` and `mos_ethnicity`, encoded using OneHotEncoder. The DecisionTreeClassifier was chosen as the classifier, and the performance metric used was balanced accuracy. The baseline model had a poor performance metric of around 0.13 for both the training and testing datasets, indicating low accuracy in predicting the officer's rank.
+
+To improve the model, four new features were added. Three categorical columns, `complainant_gender`, `complainant_ethnicity`, and `rank_incident`, were included. Additionally, two new features, `same_gender` and `same_ethnicity`, were derived using FunctionTransformer to indicate whether the police officer and the complainant had the same gender or ethnicity. These new features, along with the `rank_incident` feature, were one-hot encoded. Furthermore, the quantitative column `mos_age_incident` was standardized using StandardScaler. The DecisionTreeClassifier was still used as the classifier, and the best hyperparameters were found using GridSearchCV, with `gini` and 14 as the optimal criterion and max_depth values, respectively.
+
+The final model showed an improvement in performance compared to the baseline model, with a balanced accuracy score of 0.34 for both the training and testing datasets. While the model's performance is still not ideal, the added features contributed to the improvement.
+
+A fairness analysis was conducted to assess whether the model exhibited any gender bias. The null hypothesis stated that the model is fair, with balanced accuracy scores for female and male officers being roughly the same. The alternative hypothesis suggested that the model is unfair, with higher balanced accuracy for male officers. By performing a permutation test, it was found that the p-value was smaller than 0.05, leading to the rejection of the null hypothesis. This indicates that the observed difference in performance between male and female officers is unlikely due to random chance, suggesting potential unfairness in the model's performance.
+
+In conclusion, while the final model showed some improvement over the baseline model in predicting the rank of police officers based on civilian complaints, further work is needed to address the fairness concerns identified in the analysis.
